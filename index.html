@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCHIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --c0: #0a0a0a;
+    --c1: #1a1a1a;
+    --c2: #2e2e2e;
+    --c3: #4a4a4a;
+    --c4: #767676;
+    --c5: #a8a8a8;
+    --c6: #d0d0d0;
+    --c7: #e8e8e8;
+    --c8: #f4f4f4;
+    --c9: #fafafa;
+    --accent: #1a1a1a;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 48px; }
+
+  body {
+    background: var(--c9);
+    color: var(--c0);
+    font-family: var(--serif);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+    background: rgba(250,250,250,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--c6);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--c0);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--c4);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--c0); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding-top: calc(48px + 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--c4);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-size: clamp(5rem, 15vw, 13rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    color: var(--c0);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--c5);
+    text-transform: uppercase;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--c5);
+    text-transform: uppercase;
+    animation: fadeup 2s ease infinite;
+  }
+
+  .scroll-line {
+    width: 0.5px;
+    height: 40px;
+    background: var(--c5);
+    transform-origin: top;
+    animation: grow 2s ease infinite;
+  }
+
+  @keyframes grow {
+    0% { transform: scaleY(0); opacity: 0; }
+    50% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(1); opacity: 0; }
+  }
+
+  /* SECTIONS */
+  .sections-wrapper {
+    padding: 6rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .sections-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 0.5px solid var(--c6);
+    padding-bottom: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .sections-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--c4);
+    text-transform: uppercase;
+  }
+
+  .sections-count {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--c6);
+  }
+
+  .section-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--c6);
+    border: 1px solid var(--c6);
+  }
+
+  .section-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem 1.5rem;
+    background: var(--c9);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    min-height: 140px;
+    transition: background 0.3s;
+  }
+
+  .section-item:hover { background: var(--c8); }
+
+  .section-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--c5);
+    letter-spacing: 0.15em;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    color: var(--c0);
+    line-height: 1;
+    transition: font-size 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                letter-spacing 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .section-item:hover .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    letter-spacing: -0.02em;
+  }
+
+  .section-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--c5);
+    text-transform: uppercase;
+  }
+
+  .section-arrow {
+    font-size: 0.9rem;
+    color: var(--c5);
+    transition: transform 0.3s, color 0.3s;
+    font-style: normal;
+    font-family: var(--mono);
+  }
+
+  .section-item:hover .section-arrow {
+    transform: translateX(4px);
+    color: var(--c0);
+  }
+
+  @media (max-width: 600px) {
+    .section-list { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* SECTION PAGES */
+  .archive-section {
+    padding: 5rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 0.5px solid var(--c6);
+  }
+
+  .archive-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .archive-section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .archive-section-count {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--c5);
+    letter-spacing: 0.2em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--c6);
+    border: 1px solid var(--c6);
+  }
+
+  .grid-item {
+    background: var(--c9);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .grid-item:hover { background: var(--c8); }
+
+  .grid-item-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+  }
+
+  .grid-item-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    height: 100%;
+    color: var(--c6);
+  }
+
+  .grid-item-empty-icon {
+    font-size: 1.5rem;
+    font-family: var(--mono);
+    color: var(--c6);
+  }
+
+  .grid-item-empty-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--c6);
+    text-transform: uppercase;
+  }
+
+  /* UPLOAD */
+  .upload-section {
+    padding: 5rem 3rem;
+    background: var(--c1);
+    color: var(--c8);
+  }
+
+  .upload-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .upload-heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--c7);
+    margin-bottom: 0.75rem;
+  }
+
+  .upload-sub {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--c4);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 0.5px solid var(--c2);
+  }
+
+  .upload-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .upload-drop {
+    border: 0.5px solid var(--c3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 4rem 2rem;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+    min-height: 280px;
+  }
+
+  .upload-drop:hover, .upload-drop.drag-over {
+    border-color: var(--c5);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .upload-drop input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload-drop-icon {
+    font-size: 2rem;
+    color: var(--c3);
+    font-family: var(--mono);
+    font-style: normal;
+  }
+
+  .upload-drop-title {
+    font-size: 1.2rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--c6);
+  }
+
+  .upload-drop-hint {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--c4);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .upload-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--c4);
+    text-transform: uppercase;
+  }
+
+  .form-input {
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--c2);
+    color: var(--c7);
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 0.6rem 0;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  .form-input:focus { border-bottom-color: var(--c5); }
+  .form-input::placeholder { color: var(--c3); }
+
+  .form-select {
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--c2);
+    color: var(--c7);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.6rem 0;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    transition: border-color 0.3s;
+  }
+
+  .form-select:focus { border-bottom-color: var(--c5); }
+
+  .form-select option {
+    background: var(--c1);
+    color: var(--c7);
+  }
+
+  .form-textarea {
+    background: transparent;
+    border: 0.5px solid var(--c2);
+    color: var(--c7);
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 0.75rem;
+    outline: none;
+    resize: none;
+    min-height: 80px;
+    transition: border-color 0.3s;
+    line-height: 1.7;
+  }
+
+  .form-textarea:focus { border-color: var(--c5); }
+  .form-textarea::placeholder { color: var(--c3); }
+
+  .btn-upload {
+    background: var(--c7);
+    color: var(--c0);
+    border: none;
+    padding: 1rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .btn-upload:hover { background: var(--c9); }
+
+  /* FILE PREVIEW */
+  .file-preview {
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .file-preview.visible { display: flex; }
+
+  .file-preview-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--c5);
+    letter-spacing: 0.1em;
+    border: 0.5px solid var(--c2);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .file-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c4);
+    flex-shrink: 0;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--c0);
+    color: var(--c7);
+    padding: 1rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    z-index: 200;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem;
+    border-top: 0.5px solid var(--c6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--c4);
+    text-transform: uppercase;
+  }
+
+  .footer-year {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--c6);
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.95);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--c5);
+    cursor: pointer;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+  }
+
+  .lightbox-meta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--c4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .sections-wrapper, .archive-section, .upload-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .upload-form { grid-template-columns: 1fr; }
+    .upload-section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Archive</a>
+  <ul class="nav-links">
+    <li><a href="#sections">컬렉션</a></li>
+    <li><a href="#clothing">의류</a></li>
+    <li><a href="#photo">사진</a></li>
+    <li><a href="#video">영상</a></li>
+    <li><a href="#art">그림</a></li>
+    <li><a href="#upload">업로드</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">개인 아카이브 / Personal Archive</p>
+  <h1 class="hero-title">Archive</h1>
+  <p class="hero-sub">의류 · 사진 · 영상 · 그림</p>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- SECTION LIST -->
+<div class="sections-wrapper" id="sections">
+  <div class="sections-header">
+    <span class="sections-label">컬렉션</span>
+    <span class="sections-count">04 카테고리</span>
+  </div>
+  <nav class="section-list" aria-label="카테고리 목록">
+    <a href="#clothing" class="section-item">
+      <div class="section-left">
+        <span class="section-num">01</span>
+        <span class="section-title">의류</span>
+      </div>
+      <div class="section-right">
+        <span class="section-tag">Clothing</span>
+        <span class="section-arrow">→</span>
+      </div>
+    </a>
+    <a href="#photo" class="section-item">
+      <div class="section-left">
+        <span class="section-num">02</span>
+        <span class="section-title">사진</span>
+      </div>
+      <div class="section-right">
+        <span class="section-tag">Photography</span>
+        <span class="section-arrow">→</span>
+      </div>
+    </a>
+    <a href="#video" class="section-item">
+      <div class="section-left">
+        <span class="section-num">03</span>
+        <span class="section-title">영상</span>
+      </div>
+      <div class="section-right">
+        <span class="section-tag">Video</span>
+        <span class="section-arrow">→</span>
+      </div>
+    </a>
+    <a href="#art" class="section-item">
+      <div class="section-left">
+        <span class="section-num">04</span>
+        <span class="section-title">그림</span>
+      </div>
+      <div class="section-right">
+        <span class="section-tag">Illustration</span>
+        <span class="section-arrow">→</span>
+      </div>
+    </a>
+  </nav>
+</div>
+
+<!-- CLOTHING -->
+<section class="archive-section" id="clothing">
+  <div class="archive-section-header">
+    <h2 class="archive-section-title">의류</h2>
+    <span class="archive-section-count" id="clothing-count">— 0 items</span>
+  </div>
+  <div class="grid" id="clothing-grid"></div>
+</section>
+
+<!-- PHOTO -->
+<section class="archive-section" id="photo">
+  <div class="archive-section-header">
+    <h2 class="archive-section-title">사진</h2>
+    <span class="archive-section-count" id="photo-count">— 0 items</span>
+  </div>
+  <div class="grid" id="photo-grid"></div>
+</section>
+
+<!-- VIDEO -->
+<section class="archive-section" id="video">
+  <div class="archive-section-header">
+    <h2 class="archive-section-title">영상</h2>
+    <span class="archive-section-count" id="video-count">— 0 items</span>
+  </div>
+  <div class="grid" id="video-grid"></div>
+</section>
+
+<!-- ART -->
+<section class="archive-section" id="art">
+  <div class="archive-section-header">
+    <h2 class="archive-section-title">그림</h2>
+    <span class="archive-section-count" id="art-count">— 0 items</span>
+  </div>
+  <div class="grid" id="art-grid"></div>
+</section>
+
+<!-- UPLOAD -->
+<section class="upload-section" id="upload">
+  <div class="upload-inner">
+    <h2 class="upload-heading">업로드</h2>
+    <p class="upload-sub">Upload / Archive</p>
+    <div class="upload-form">
+      <div>
+        <div class="upload-drop" id="drop-zone">
+          <input type="file" id="file-input" multiple accept="image/*,video/*" onchange="handleFileSelect(this.files)">
+          <div class="upload-drop-icon">+</div>
+          <p class="upload-drop-title">파일을 드래그하거나 클릭하세요</p>
+          <p class="upload-drop-hint">이미지, 영상 지원<br>JPG · PNG · GIF · MP4 · MOV</p>
+        </div>
+        <div class="file-preview" id="file-preview"></div>
+      </div>
+      <div class="upload-meta">
+        <div class="form-group">
+          <label class="form-label">제목</label>
+          <input type="text" class="form-input" id="input-title" placeholder="작업물 제목">
+        </div>
+        <div class="form-group">
+          <label class="form-label">카테고리</label>
+          <select class="form-select" id="input-category">
+            <option value="">— 선택하세요</option>
+            <option value="clothing">의류</option>
+            <option value="photo">사진</option>
+            <option value="video">영상</option>
+            <option value="art">그림</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">날짜</label>
+          <input type="text" class="form-input" id="input-date" placeholder="YYYY.MM">
+        </div>
+        <div class="form-group">
+          <label class="form-label">메모</label>
+          <textarea class="form-textarea" id="input-note" placeholder="작업물에 대한 간단한 메모"></textarea>
+        </div>
+        <button class="btn-upload" onclick="uploadItem()">아카이빙 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Personal Archive</span>
+  <span class="footer-year" id="footer-year"></span>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">닫기 ×</button>
+  <img id="lightbox-img" src="" alt="">
+  <p class="lightbox-meta" id="lightbox-meta"></p>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SUPABASE SETUP BANNER -->
+<div id="setup-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:#1a1a1a;border-top:0.5px solid #2e2e2e;padding:1.25rem 3rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+  <div style="flex:1;min-width:200px;">
+    <p style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;color:#a8a8a8;text-transform:uppercase;margin-bottom:0.4rem;">Supabase 연동 설정</p>
+    <p style="font-family:'DM Mono',monospace;font-size:0.65rem;color:#767676;line-height:1.6;">아래에 Supabase Project URL과 Anon Key를 입력하면 파일이 영구 저장됩니다.</p>
+  </div>
+  <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;">
+    <input id="sb-url" placeholder="https://xxxx.supabase.co" style="background:transparent;border:0.5px solid #2e2e2e;color:#e8e8e8;font-family:'DM Mono',monospace;font-size:0.65rem;padding:0.5rem 0.75rem;outline:none;width:240px;letter-spacing:0.05em;" />
+    <input id="sb-key" placeholder="anon key" style="background:transparent;border:0.5px solid #2e2e2e;color:#e8e8e8;font-family:'DM Mono',monospace;font-size:0.65rem;padding:0.5rem 0.75rem;outline:none;width:240px;letter-spacing:0.05em;" />
+    <button onclick="saveSupabaseConfig()" style="background:#e8e8e8;color:#0a0a0a;border:none;padding:0.5rem 1.25rem;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;">저장</button>
+    <button onclick="document.getElementById('setup-banner').style.display='none'" style="background:transparent;color:#767676;border:0.5px solid #2e2e2e;padding:0.5rem 1rem;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;">닫기</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  /* ── Supabase 설정 ── */
+  let sbClient = null;
+  const BUCKET = 'archive-files';
+  const TABLE  = 'archive_items';
+
+  function initSupabase(url, key) {
+    if (!url || !key) return false;
+    try {
+      sbClient = window.supabase.createClient(url, key);
+      return true;
+    } catch(e) { console.error('Supabase init error:', e); return false; }
+  }
+
+  window.saveSupabaseConfig = function() {
+    const url = document.getElementById('sb-url').value.trim();
+    const key = document.getElementById('sb-key').value.trim();
+    if (!url || !key) { showToast('URL과 Key를 모두 입력하세요'); return; }
+    const cleanUrl = url.replace(/\/$/, '');
+    localStorage.setItem('sb_url', cleanUrl);
+    localStorage.setItem('sb_key', key);
+    if (initSupabase(cleanUrl, key)) {
+      document.getElementById('setup-banner').style.display = 'none';
+      showToast('Supabase 연동 완료 ✓');
+      loadFromSupabase();
+    } else {
+      showToast('연동 실패 — URL/Key를 확인하세요');
+    }
+  }
+
+  /* 저장된 설정으로 자동 초기화 */
+  const savedUrl = localStorage.getItem('sb_url');
+  const savedKey = localStorage.getItem('sb_key');
+  if (savedUrl && savedKey) {
+    initSupabase(savedUrl, savedKey);
+  }
+
+  /* 설정 버튼을 nav에 추가 */
+  const configBtn = document.createElement('button');
+  configBtn.textContent = '⚙ 연동';
+  configBtn.style.cssText = 'background:transparent;border:0.5px solid #d0d0d0;color:#767676;font-family:"DM Mono",monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.35rem 0.75rem;cursor:pointer;transition:color 0.2s,border-color 0.2s;';
+  configBtn.addEventListener('mouseenter', () => { configBtn.style.color='#0a0a0a'; configBtn.style.borderColor='#0a0a0a'; });
+  configBtn.addEventListener('mouseleave', () => { configBtn.style.color='#767676'; configBtn.style.borderColor='#d0d0d0'; });
+  configBtn.onclick = () => {
+    const b = document.getElementById('setup-banner');
+    b.style.display = b.style.display === 'none' ? 'flex' : 'none';
+    if (savedUrl) document.getElementById('sb-url').value = savedUrl;
+    if (savedKey) document.getElementById('sb-key').value = savedKey;
+  };
+  document.querySelector('nav').appendChild(configBtn);
+
+  /* ── 로컬 상태 ── */
+  const archive = { clothing: [], photo: [], video: [], art: [] };
+
+  let selectedFiles = [];
+
+  function handleFileSelect(files) {
+    selectedFiles = Array.from(files);
+    const preview = document.getElementById('file-preview');
+    preview.innerHTML = '';
+    if (selectedFiles.length === 0) { preview.classList.remove('visible'); return; }
+    preview.classList.add('visible');
+    selectedFiles.forEach(f => {
+      const item = document.createElement('div');
+      item.className = 'file-preview-item';
+      item.innerHTML = `<div class="file-dot"></div><span>${f.name}</span>`;
+      preview.appendChild(item);
+    });
+  }
+
+  const dropZone = document.getElementById('drop-zone');
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    handleFileSelect(e.dataTransfer.files);
+  });
+
+  /* ── 업로드 ── */
+  async function uploadItem() {
+    const title    = document.getElementById('input-title').value.trim();
+    const category = document.getElementById('input-category').value;
+    const date     = document.getElementById('input-date').value.trim() || new Date().getFullYear() + '.' + String(new Date().getMonth()+1).padStart(2,'0');
+    const note     = document.getElementById('input-note').value.trim();
+
+    if (!category) { showToast('카테고리를 선택해주세요'); return; }
+    if (!title && selectedFiles.length === 0) { showToast('제목 또는 파일을 추가해주세요'); return; }
+
+    const btn = document.querySelector('.btn-upload');
+    btn.textContent = '저장 중…'; btn.disabled = true;
+
+    const filesToProcess = selectedFiles.length > 0 ? selectedFiles : [null];
+
+    for (const file of filesToProcess) {
+      const entryTitle = title || (file ? file.name : '무제');
+      let src = null;
+      let fileType = file ? file.type : 'none';
+      let storagePath = null;
+
+      if (file) {
+        if (sbClient) {
+          /* Supabase Storage 업로드 */
+          const ext  = file.name.split('.').pop();
+          const path = `${category}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+          const { error: upErr } = await sbClient.storage.from(BUCKET).upload(path, file, { upsert: false });
+          if (upErr) { showToast('파일 업로드 실패: ' + upErr.message); continue; }
+          storagePath = path;
+          const { data: urlData } = sbClient.storage.from(BUCKET).getPublicUrl(path);
+          src = urlData.publicUrl;
+        } else {
+          /* 로컬 fallback: FileReader */
+          src = await new Promise(res => { const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(file); });
+        }
+      }
+
+      const entry = { title: entryTitle, date, note, src, type: fileType, storage_path: storagePath };
+
+      if (sbClient) {
+        const { error: dbErr } = await sbClient.from(TABLE).insert({ title: entryTitle, category, date, note, file_url: src, file_type: fileType, storage_path: storagePath });
+        if (dbErr) { showToast('DB 저장 실패: ' + dbErr.message); }
+      }
+
+      archive[category].push(entry);
+      renderGrid(category);
+    }
+
+    btn.textContent = '아카이빙 →'; btn.disabled = false;
+    document.getElementById('input-title').value = '';
+    document.getElementById('input-date').value = '';
+    document.getElementById('input-note').value = '';
+    document.getElementById('input-category').value = '';
+    document.getElementById('file-input').value = '';
+    document.getElementById('file-preview').classList.remove('visible');
+    selectedFiles = [];
+    showToast(sbClient ? '아카이빙 완료 (클라우드 저장됨)' : '아카이빙 완료 (로컬 — Supabase 미연동)');
+  }
+
+  /* ── Supabase에서 불러오기 ── */
+  async function loadFromSupabase() {
+    if (!sbClient) return;
+    showToast('데이터 불러오는 중…');
+    const { data, error } = await sbClient.from(TABLE).select('*').order('created_at', { ascending: false });
+    if (error) { showToast('불러오기 실패: ' + error.message); return; }
+    archive.clothing = []; archive.photo = []; archive.video = []; archive.art = [];
+    data.forEach(row => {
+      const cat = row.category;
+      if (!archive[cat]) return;
+      archive[cat].push({ title: row.title, date: row.date, note: row.note, src: row.file_url, type: row.file_type || 'none', storage_path: row.storage_path });
+    });
+    ['clothing','photo','video','art'].forEach(renderGrid);
+    showToast('불러오기 완료 ✓');
+  }
+
+  /* ── 그리드 렌더 ── */
+  function renderGrid(category) {
+    const grid  = document.getElementById(category + '-grid');
+    const count = document.getElementById(category + '-count');
+    grid.innerHTML = '';
+    const items = archive[category];
+    count.textContent = `— ${items.length} item${items.length !== 1 ? 's' : ''}`;
+
+    items.forEach(item => {
+      const cell = document.createElement('div');
+      cell.className = 'grid-item';
+
+      if (item.src && item.type && item.type.startsWith('image')) {
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.className = 'grid-item-preview';
+        img.alt = item.title;
+        cell.appendChild(img);
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:absolute;inset:0;background:rgba(10,10,10,0);transition:background 0.3s;display:flex;align-items:flex-end;padding:0.75rem;';
+        const meta = document.createElement('span');
+        meta.style.cssText = 'font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;color:#e8e8e8;opacity:0;transition:opacity 0.3s;text-transform:uppercase;';
+        meta.textContent = item.title;
+        overlay.appendChild(meta);
+        cell.appendChild(overlay);
+        cell.addEventListener('mouseenter', () => { overlay.style.background='rgba(10,10,10,0.45)'; meta.style.opacity='1'; });
+        cell.addEventListener('mouseleave', () => { overlay.style.background='rgba(10,10,10,0)'; meta.style.opacity='0'; });
+        cell.addEventListener('click', () => openLightbox(item.src, item.title + (item.date ? ' / ' + item.date : '')));
+      } else if (item.src && item.type && item.type.startsWith('video')) {
+        const vid = document.createElement('video');
+        vid.src = item.src;
+        vid.className = 'grid-item-preview';
+        vid.muted = true; vid.loop = true;
+        cell.appendChild(vid);
+        cell.addEventListener('mouseenter', () => vid.play());
+        cell.addEventListener('mouseleave', () => vid.pause());
+      } else {
+        const empty = document.createElement('div');
+        empty.className = 'grid-item-empty';
+        empty.innerHTML = `<span class="grid-item-empty-icon">◻</span><span class="grid-item-empty-label">${item.title}</span>${item.date ? `<span class="grid-item-empty-label">${item.date}</span>` : ''}`;
+        cell.appendChild(empty);
+      }
+      grid.appendChild(cell);
+    });
+
+    const add = document.createElement('div');
+    add.className = 'grid-item';
+    add.style.cursor = 'pointer';
+    add.innerHTML = `<div class="grid-item-empty"><span class="grid-item-empty-icon" style="font-size:2rem;color:var(--c5)">+</span><span class="grid-item-empty-label">추가</span></div>`;
+    add.addEventListener('click', () => {
+      document.getElementById('input-category').value = category;
+      document.getElementById('upload').scrollIntoView({ behavior: 'smooth' });
+    });
+    grid.appendChild(add);
+  }
+
+  /* 초기 렌더 + Supabase 데이터 로드 */
+  ['clothing','photo','video','art'].forEach(renderGrid);
+  if (sbClient) loadFromSupabase();
+
+  /* ── 라이트박스 ── */
+  function openLightbox(src, meta) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-meta').textContent = meta;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ── 토스트 ── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+</script>
+</body>
+</html>
